@@ -1,25 +1,3 @@
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-<!-- PROJECT LOGO -->
-<br />
-<p align="center">
-  <a href="https://github.com/mysticaltech/kube-hetzner">
-    <img src=".images/kube-hetzner-logo.png" alt="Logo" width="112" height="112">
-  </a>
-
-  <h2 align="center">Kube-Hetzner</h2>
-
-  <p align="center">
-    A fully automated, optimized and auto-upgradable, HA-able, k3s cluster on <a href="https://hetzner.com" target="_blank">Hetzner Cloud</a> 🤑
-  </p>
-  <hr />
-  <br />
-</p>
 
 ## About The Project
 
