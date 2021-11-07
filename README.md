@@ -209,6 +209,149 @@ Also, if you had a full blown cluster in use, it's best do delete the whole proj
 ## Example
 
 ```
+$ ssh-keygen -t ed25519 -C "your_email@example.com"
+
+$ cat terraform.tfvars
+hcloud_token = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+public_key   = "/home/davar/.ssh/id_ed25519.pub"
+private_key  = "/home/davar/.ssh/id_ed25519"
+
+$ terraform apply -auto-approve
+...
+Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+agents_public_ip = [
+  "23.88.124.208",
+  "23.88.124.244",
+]
+controlplanes_public_ip = [
+  "23.88.123.16",
+  "49.12.5.242",
+  "49.12.73.170",
+]
+
+$ ssh root@23.88.123.16
+
+$ export KUBECONFIG=./kubeconfig.yaml
+$ kubectl get node -o wide
+NAME                  STATUS   ROLES                       AGE     VERSION        INTERNAL-IP   EXTERNAL-IP     OS-IMAGE                  KERNEL-VERSION            CONTAINER-RUNTIME
+k3s-agent-0           Ready    <none>                      8m37s   v1.21.5+k3s2   10.0.0.5      23.88.124.208   Fedora 34 (Thirty Four)   5.14.16-201.fc34.x86_64   containerd://1.4.11-k3s1
+k3s-agent-1           Ready    <none>                      7m      v1.21.5+k3s2   10.0.0.6      23.88.124.244   Fedora 34 (Thirty Four)   5.14.16-201.fc34.x86_64   containerd://1.4.11-k3s1
+k3s-control-plane-0   Ready    control-plane,etcd,master   12m     v1.21.5+k3s2   10.0.0.2      23.88.123.16    Fedora 34 (Thirty Four)   5.14.16-201.fc34.x86_64   containerd://1.4.11-k3s1
+k3s-control-plane-1   Ready    control-plane,etcd,master   6m45s   v1.21.5+k3s2   10.0.0.3      49.12.5.242     Fedora 34 (Thirty Four)   5.14.16-201.fc34.x86_64   containerd://1.4.11-k3s1
+k3s-control-plane-2   Ready    control-plane,etcd,master   7m      v1.21.5+k3s2   10.0.0.4      49.12.73.170    Fedora 34 (Thirty Four)   5.14.16-201.fc34.x86_64   containerd://1.4.11-k3s1
+
+
+$ helm install --values=manifests/helm/nginx/values.yaml ingress-nginx ingress-nginx/ingress-nginx -n kube-system
+
+$ kubectl get all --all-namespaces
+NAMESPACE        NAME                                                  READY   STATUS    RESTARTS   AGE
+kube-system      pod/cilium-kjzvv                                      1/1     Running   0          9m13s
+kube-system      pod/cilium-ktd5w                                      1/1     Running   0          13m
+kube-system      pod/cilium-operator-687b9cbc9d-lqpvv                  1/1     Running   0          13m
+kube-system      pod/cilium-operator-687b9cbc9d-v5g9c                  1/1     Running   0          13m
+kube-system      pod/cilium-pfs97                                      1/1     Running   0          10m
+kube-system      pod/cilium-qdlfr                                      1/1     Running   0          9m12s
+kube-system      pod/cilium-sb9vr                                      1/1     Running   0          8m58s
+kube-system      pod/coredns-7448499f4d-cbcd6                          1/1     Running   0          13m
+kube-system      pod/hcloud-cloud-controller-manager-7db94b48f-jxpr8   1/1     Running   0          13m
+kube-system      pod/hcloud-csi-controller-0                           5/5     Running   0          14m
+kube-system      pod/hcloud-csi-node-5vq4m                             3/3     Running   0          9m13s
+kube-system      pod/hcloud-csi-node-bvfrs                             3/3     Running   0          9m12s
+kube-system      pod/hcloud-csi-node-d6qss                             3/3     Running   0          13m
+kube-system      pod/hcloud-csi-node-r2486                             3/3     Running   0          8m58s
+kube-system      pod/hcloud-csi-node-xlczv                             3/3     Running   0          10m
+kube-system      pod/ingress-nginx-controller-5c8d66c76d-jx5r2         1/1     Running   0          35s
+kube-system      pod/kured-czd5j                                       1/1     Running   0          8m53s
+kube-system      pod/kured-dfl5c                                       1/1     Running   0          10m
+kube-system      pod/kured-f2hqb                                       1/1     Running   0          13m
+kube-system      pod/kured-jsdjz                                       1/1     Running   0          8m52s
+kube-system      pod/kured-v79rs                                       1/1     Running   0          8m38s
+kube-system      pod/metrics-server-86cbb8457f-skbch                   1/1     Running   0          13m
+system-upgrade   pod/system-upgrade-controller-85b58fbc5f-mfgwf        1/1     Running   0          13m
+
+NAMESPACE     NAME                                         TYPE           CLUSTER-IP      EXTERNAL-IP                                 PORT(S)                      AGE
+default       service/kubernetes                           ClusterIP      10.43.0.1       <none>                                      443/TCP                      14m
+kube-system   service/hcloud-csi-controller-metrics        ClusterIP      10.43.131.150   <none>                                      9189/TCP                     14m
+kube-system   service/hcloud-csi-node-metrics              ClusterIP      10.43.148.14    <none>                                      9189/TCP                     14m
+kube-system   service/ingress-nginx-controller             LoadBalancer   10.43.78.207    10.0.0.7,2a01:4f8:c011:b4::1,49.12.17.211   80:32368/TCP,443:30219/TCP   36s
+kube-system   service/ingress-nginx-controller-admission   ClusterIP      10.43.38.114    <none>                                      443/TCP                      36s
+kube-system   service/kube-dns                             ClusterIP      10.43.0.10      <none>                                      53/UDP,53/TCP,9153/TCP       14m
+kube-system   service/metrics-server                       ClusterIP      10.43.195.56    <none>                                      443/TCP                      14m
+
+NAMESPACE     NAME                             DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE
+kube-system   daemonset.apps/cilium            5         5         5       5            5           <none>          14m
+kube-system   daemonset.apps/hcloud-csi-node   5         5         5       5            5           <none>          14m
+kube-system   daemonset.apps/kured             5         5         5       5            5           <none>          14m
+
+NAMESPACE        NAME                                              READY   UP-TO-DATE   AVAILABLE   AGE
+kube-system      deployment.apps/cilium-operator                   2/2     2            2           14m
+kube-system      deployment.apps/coredns                           1/1     1            1           14m
+kube-system      deployment.apps/hcloud-cloud-controller-manager   1/1     1            1           14m
+kube-system      deployment.apps/ingress-nginx-controller          1/1     1            1           35s
+kube-system      deployment.apps/metrics-server                    1/1     1            1           14m
+system-upgrade   deployment.apps/system-upgrade-controller         1/1     1            1           14m
+
+NAMESPACE        NAME                                                        DESIRED   CURRENT   READY   AGE
+kube-system      replicaset.apps/cilium-operator-687b9cbc9d                  2         2         2       14m
+kube-system      replicaset.apps/coredns-7448499f4d                          1         1         1       14m
+kube-system      replicaset.apps/hcloud-cloud-controller-manager-7db94b48f   1         1         1       14m
+kube-system      replicaset.apps/ingress-nginx-controller-5c8d66c76d         1         1         1       35s
+kube-system      replicaset.apps/metrics-server-86cbb8457f                   1         1         1       14m
+system-upgrade   replicaset.apps/system-upgrade-controller-85b58fbc5f        1         1         1       14m
+
+NAMESPACE     NAME                                     READY   AGE
+kube-system   statefulset.apps/hcloud-csi-controller   1/1     14m
+
+$ terraform output
+agents_public_ip = [
+  "23.88.124.208",
+  "23.88.124.244",
+]
+controlplanes_public_ip = [
+  "23.88.123.16",
+  "49.12.5.242",
+  "49.12.73.170",
+]
+
+$ hcloud server list
+ID         NAME                  STATUS    IPV4            IPV6                     DATACENTER
+15799374   k3s-control-plane-0   running   23.88.123.16    2a01:4f8:c17:79ed::/64   fsn1-dc14
+15799417   k3s-control-plane-1   running   49.12.5.242     2a01:4f8:c17:695f::/64   fsn1-dc14
+15799418   k3s-agent-0           running   23.88.124.208   2a01:4f8:c17:beca::/64   fsn1-dc14
+15799419   k3s-agent-1           running   23.88.124.244   2a01:4f8:c17:e585::/64   fsn1-dc14
+15799420   k3s-control-plane-2   running   49.12.73.170    2a01:4f8:c17:fa06::/64   fsn1-dc14
+
+
+$ kubectl -n kube-system exec --stdin --tty cilium-kjzvv -- cilium monitor
+$ kubectl -n kube-system exec --stdin --tty cilium-kjzvv -- cilium service list
+$ kubectl -n kube-system exec --stdin --tty cilium-kjzvv -- cilium status --verbose
+
+$ kubectl apply -f ./hello/hello-kubernetes-default.yaml 
+deployment.apps/hello-kubernetes created
+service/hello-kubernetes created
+persistentvolumeclaim/csi-pvc created
+$ kubectl get all
+NAME                                    READY   STATUS    RESTARTS   AGE
+pod/hello-kubernetes-6f8d7694bc-wvxqq   1/1     Running   0          68s
+
+NAME                       TYPE           CLUSTER-IP     EXTERNAL-IP                                 PORT(S)          AGE
+service/hello-kubernetes   LoadBalancer   10.43.117.10   10.0.0.8,2a01:4f8:c011:e6::1,49.12.21.176   8080:31498/TCP   68s
+service/kubernetes         ClusterIP      10.43.0.1      <none>                                      443/TCP          34m
+
+NAME                               READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/hello-kubernetes   1/1     1            1           68s
+
+NAME                                          DESIRED   CURRENT   READY   AGE
+replicaset.apps/hello-kubernetes-6f8d7694bc   1         1         1       68s
+
+Clean:
+$ helm delete ingress-nginx -n kube-system
+$ hcloud network delete k3s-net
+$ terraform destroy -auto-approve
+
 
 ```
 
