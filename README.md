@@ -209,7 +209,6 @@ hcloud network delete k3s-net
 
 Also, if you had a full blown cluster in use, it's best do delete the whole project in your Hetzner account directly, as there may be other ressources created via operators that are not part of this project.
 
-<!-- ROADMAP -->
 
 ## Example
 
