@@ -229,37 +229,6 @@ Any contributions you make are **greatly appreciated**.
 
 <!-- LICENSE -->
 
-## License
 
-The following code is distributed as-is and under the MIT License. See [LICENSE](LICENSE) for more information.
 
-<!-- CONTACT -->
 
-## Contact
-
-Karim Naufal - [@mysticaltech](https://twitter.com/mysticaltech) - karim.naufal@me.com
-
-Project Link: [https://github.com/mysticaltech/kube-hetzner](https://github.com/mysticaltech/kube-hetzner)
-
-<!-- ACKNOWLEDGEMENTS -->
-
-## Acknowledgements
-
-- [k-andy](https://github.com/StarpTech/k-andy) was the starting point for this project. It wouldn't have been possible without it.
-- [Best-README-Template](https://github.com/othneildrew/Best-README-Template) that made writing this readme a lot easier.
-  <!-- MARKDOWN LINKS & IMAGES -->
-  <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/mysticaltech/kube-hetzner.svg?style=for-the-badge
-[contributors-url]: https://github.com/mysticaltech/kube-hetzner/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/mysticaltech/kube-hetzner.svg?style=for-the-badge
-[forks-url]: https://github.com/mysticaltech/kube-hetzner/network/members
-[stars-shield]: https://img.shields.io/github/stars/mysticaltech/kube-hetzner.svg?style=for-the-badge
-[stars-url]: https://github.com/mysticaltech/kube-hetzner/stargazers
-[issues-shield]: https://img.shields.io/github/issues/mysticaltech/kube-hetzner.svg?style=for-the-badge
-[issues-url]: https://github.com/mysticaltech/kube-hetzner/issues
-[license-shield]: https://img.shields.io/github/license/mysticaltech/kube-hetzner.svg?style=for-the-badge
-[license-url]: https://github.com/mysticaltech/kube-hetzner/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/karimnaufal/
-[product-screenshot]: .images/kubectl-pods-screenshot.png
