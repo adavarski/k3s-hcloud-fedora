@@ -209,6 +209,7 @@ Also, if you had a full blown cluster in use, it's best do delete the whole proj
 ## Example
 
 ```
+$ export HCLOUD_TOKEN="YOUR HETZNER TOKEN"
 $ ssh-keygen -t ed25519 -C "your_email@example.com"
 
 $ cat terraform.tfvars
@@ -242,7 +243,6 @@ k3s-agent-1           Ready    <none>                      7m      v1.21.5+k3s2 
 k3s-control-plane-0   Ready    control-plane,etcd,master   12m     v1.21.5+k3s2   10.0.0.2      23.88.123.16    Fedora 34 (Thirty Four)   5.14.16-201.fc34.x86_64   containerd://1.4.11-k3s1
 k3s-control-plane-1   Ready    control-plane,etcd,master   6m45s   v1.21.5+k3s2   10.0.0.3      49.12.5.242     Fedora 34 (Thirty Four)   5.14.16-201.fc34.x86_64   containerd://1.4.11-k3s1
 k3s-control-plane-2   Ready    control-plane,etcd,master   7m      v1.21.5+k3s2   10.0.0.4      49.12.73.170    Fedora 34 (Thirty Four)   5.14.16-201.fc34.x86_64   containerd://1.4.11-k3s1
-
 
 $ helm install --values=manifests/helm/nginx/values.yaml ingress-nginx ingress-nginx/ingress-nginx -n kube-system
 
