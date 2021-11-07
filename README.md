@@ -361,6 +361,7 @@ replicaset.apps/hello-kubernetes-6f8d7694bc   1         1         1       68s
 Clean:
 $ helm delete ingress-nginx -n kube-system
 $ hcloud network delete k3s-net
+$ hcloud firewall delete k3s-firewall
 $ terraform destroy -auto-approve
 
 
