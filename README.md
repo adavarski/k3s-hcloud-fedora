@@ -346,7 +346,18 @@ deployment.apps/hello-kubernetes   1/1     1            1           68s
 
 NAME                                          DESIRED   CURRENT   READY   AGE
 replicaset.apps/hello-kubernetes-6f8d7694bc   1         1         1       68s
+```
 
+<img src="pictures/k3s-hcloud-fedora-servers.png" width="900">
+<img src="pictures/k3s-hcloud-fedora-networks.png" width="900">
+<img src="pictures/k3s-hcloud-fedora-firewall.png" width="900">
+<img src="pictures/k3s-hcloud-fedora-ssh_key.png" width="900">
+<img src="pictures/k3s-hcloud-fedora-volume.png" width="900">
+<img src="pictures/k3s-hcloud-fedora-nginx-ingress.png" width="900">
+<img src="pictures/k3s-hcloud-fedora-lb-hello-unhealty.png" width="900">
+
+
+```
 Clean:
 $ helm delete ingress-nginx -n kube-system
 $ hcloud network delete k3s-net
