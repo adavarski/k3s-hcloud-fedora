@@ -211,24 +211,11 @@ Also, if you had a full blown cluster in use, it's best do delete the whole proj
 
 <!-- ROADMAP -->
 
-## Roadmap
+## Example
 
-See the [open issues](https://github.com/mysticaltech/kube-hetzner/issues) for a list of proposed features (and known issues).
+```
 
-<!-- CONTRIBUTING -->
-
-## Contributing
-
-Any contributions you make are **greatly appreciated**.
-
-1. Fork the Project
-2. Create your Branch (`git checkout -b AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin AmazingFeature`)
-5. Open a Pull Request
-
-<!-- LICENSE -->
-
+```
 
 
 
