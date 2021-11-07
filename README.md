@@ -1,9 +1,5 @@
 # k3s-hcloud (fedora)
 
-## About The Project
-
-![Product Name Screen Shot][product-screenshot]
-
 [Hetzner Cloud](https://hetzner.com) is a good cloud provider that offers very affordable prices for cloud instances. The goal of this project was to create an optimal Kubernetes installation with it. We wanted functionality that was as close as possible to GKE's auto-pilot.
 
 Here's what is working at the moment:
